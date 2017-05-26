@@ -2,7 +2,25 @@
 {
     "name": "qq2236639958/viptv",
     "description": "VipTV云视听，致力于打造安卓大屏上最清晰、最流畅、最稳定的电视直播软件。 完全免费， 电视台同步高清直播，涵盖绝大部分央视和卫视频道，正版源永不断线；便捷收看国内外电视台、地方电视台、互联网直播频道等，只有你想不到，没有你看不到；节目源由万千网友共同维护，随时提供稳定可靠的节目源",
-    "license": "mit",
-    "minimum-stability": "dev",
-    "require": {}
+    "license": "Apache2",
+     "authors": [
+        {
+            "name": "VipTV云视听",
+            "email": "2236639958@qq.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/qq2236639958/VipTV"
+    }, 
+     "require": {
+        "php": ">=5.4.0"
+    },   
+    "autoload": {
+        "files": ｛
+            "src/helper.php"
+       ｝,
+        "psr-4": {
+            "think\\angular\\": "src/"
+        }
+    }  
 }
