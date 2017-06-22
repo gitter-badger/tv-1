@@ -22,5 +22,11 @@
         "psr-4": {
             "think\\angular\\": "src/"
         }
-    }  
+    }
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }
