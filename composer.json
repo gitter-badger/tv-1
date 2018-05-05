@@ -10,7 +10,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/qq2236639958/VipTV"
+        "issues": "https://github.com/qq2236639958/viptv"
     }, 
      "require": {
         "php": ">=5.4.0"
