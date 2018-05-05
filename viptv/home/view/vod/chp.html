@@ -1,0 +1,17 @@
+{extend name="base:player"/}
+{block name="title"}{$ptitle} - {$webtitle}- {$description}{/block}
+{block name="js"}
+    <script type="text/javascript" src="__CHP__/chplayer.js"></script>
+{/block}
+{block name="script"}
+    <script type="text/javascript">
+     $(function(){
+        $.post("{$api}",function(data){           
+            document.title = data['title'] +" {$ptitle} - {$title} - {$description}";
+            chp(data['base']) ;   
+        },"json");  
+        document.title =  "外部调用{$ptitle} - {$title}- {$description}";
+        chp(getUrlParam('base'));      
+    });
+    </script>
+{/block}

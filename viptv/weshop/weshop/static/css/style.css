@@ -1,0 +1,18 @@
+.red{
+	color: #ff0000;
+}
+
+.upload-imgs{
+	position: relative;
+	display: inline-block;
+	width: 200px;
+}
+.upload-imgs img{
+	width: 100%;
+}
+
+.upload-imgs .upload-imgs-del{
+	position: absolute;
+	top: 0;
+	right: 0;
+}

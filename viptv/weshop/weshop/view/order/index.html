@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}
+    {CSS href="__STATIC__layui/css/layui.css" /}
+    {CSS href="__ADDONSTATIC__css/style.css" /}
+</head>
+<body style="padding: 0px 10px;">
+{block name="nav_title"}
+<!-- <a href="{:addonUrl('order/edit')}" id="addkw" class="layui-btn layui-btn-normal layui-btn-small rha-nav-title">新增</a> -->
+{/block}
+<div style="padding: 0px 10px 0px 10px;">
+    <table class="layui-table" lay-skin="nob" lay-size="sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>数量</th>
+            <th>价格</th>
+            <th>运费</th>
+            <th>收货地址</th>
+            <th>状态</th>            
+            <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data" id="vo"}            
+            <tr>
+                <td rowspan="{count($vo.goodsInfo)}">{$vo.id}</td>
+                <td rowspan="{count($vo.goodsInfo)}">{volist name="$vo.goodsInfo" id="goods"}{$goods.title}<br />{/volist}</td>
+                <td rowspan="{count($vo.goodsInfo)}">{volist name="$vo.goodsInfo" id="goods"}{$goods.count}<br />{/volist}</td>
+                <td rowspan="{count($vo.goodsInfo)}">{volist name="$vo.goodsInfo" id="goods"}{$goods.price}<br />{/volist}</td>
+                <td rowspan="{count($vo.goodsInfo)}">{volist name="$vo.goodsInfo" id="goods"}{$goods.freight}<br />{/volist}</td>
+                <td rowspan="{count($vo.goodsInfo)}">{$vo.address_info.province}{$vo.address_info.city}{$vo.address_info.area}{$vo.address_info.address}</td>
+                <td rowspan="{count($vo.goodsInfo)}">
+                    {if $vo.status ==0}
+                        未付款
+                    {elseif $vo.is_send ==0}
+                        已付款,待发货
+                    {elseif $vo.is_finish ==0}
+                        已发货，待收货
+                    {elseif $vo.is_comment ==0}
+                        待评价
+                    {else}
+                        已完成
+                    {/if}
+                </td>
+                <td rowspan="{count($vo.goodsInfo)}">
+                    <a class="layui-btn layui-btn-mini send-btn" href="javascript:;" data="{$vo.id}">发货</a>
+                    <a class="layui-btn layui-btn-mini layui-btn-danger" onclick="del({$vo.id})" href="javascript:;">删除</a>
+                </td>
+            </tr>            
+        {/volist}
+        </tbody>
+    </table>
+    {$data->render()|raw}
+</div>
+</body>
+<script>
+    var layer;
+    layui.use('layer',function () {
+        layer = layui.layer;
+    })
+    function del(id) {
+        $.post("{:addonUrl('order/del')}",{'id':id},function (res) { 
+            layer.msg(res.msg);           
+            if(res.status == 1){
+                setTimeout(function(){
+                    window.location.reload();
+                },1000);                
+            }
+        })
+    }
+    $(".send-btn").click(function(){
+        var id = $(this).attr("data");
+        var url = "{:addonUrl('order/send')}/id/"+id;
+        layer.open({
+          type: 2,
+          area: ['60%', '50%'], 
+          content: [url, 'no'] //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        }); 
+    });
+    
+</script>
+</html>

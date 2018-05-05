@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no">    
+    <title>新建地址</title>
+    {include file="common/base" /}
+    <style>
+        .m-cell {
+            background-color: #FFF;
+            position: relative;
+            z-index: 1;
+            margin-bottom: .35rem;
+            height: 3rem;
+            line-height: 3rem;
+        }
+        /* 有些资料显示需要写，有些显示不需要，但是在编辑器webstorm中该属性不被识别 */
+        ::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #888;
+        }
+
+        :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #888;
+        }
+
+        ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #888;
+        }
+
+        :-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #888;
+        }
+    </style>
+
+</head>
+<body style="background:#eee">
+    <header class="aui-header-default aui-header-fixed ">
+        <a href="javascript:history.back(-1)" class="aui-header-item">
+            <i class="aui-icon aui-icon-back"></i>
+        </a>
+        <div class="aui-header-center aui-header-center-clear">
+            <div class="aui-header-center-logo">
+                <div class="">新建地址</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="aui-myOrder-content">
+        <div class="aui-prompt"><i class="aui-icon aui-prompt-sm"></i>填写您的地址信息</div>
+        <div class="aui-Address-box">
+            <p>
+                <input class="aui-Address-box-input" type="text" name="name" placeholder="收货人姓名">
+            </p>
+            <p>
+                <input class="aui-Address-box-input" type="number" name="mobile" placeholder="手机号码">
+            </p>
+            <p>
+                <input class="aui-Address-box-input" type="text" name="province" readonly="" id="J_Address" placeholder="所在地区">
+            </p>
+            <p>
+                <textarea class="aui-Address-box-text" name="address" placeholder="街道， 小区门牌等详细地址" rows="3"></textarea>
+            </p>
+        </div>
+        <div class="aui-out">
+            <a href="javascript:;" class="red-color save-address" style="color:#fff">保存</a>
+        </div>
+    </section>
+
+
+    <script type="text/javascript" src="__ADDONSTATIC__js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ADDONSTATIC__js/aui.js"></script>
+    <script type="text/javascript" src="__ADDONSTATIC__js/city.js"></script>
+    {js href='__STATIC__layui/layui.js' /}
+    <script type="text/javascript">
+        /**
+         * Javascript API调用Tab
+         */
+        !function ($) {
+            var $tab = $('#J_Tab');
+            $tab.tab({
+                nav: '.tab-nav-item',
+                panel: '.tab-panel-item',
+                activeClass: 'tab-active'
+            });
+            $tab.find('.tab-nav-item').on('opened.ydui.tab', function (e) {
+                console.log('索引：%s - [%s]已经打开了', e.index, $(this).text());
+            });
+        }(jQuery);
+    </script>
+    <script>
+        var layer;
+        layui.use('layer',function () {
+            layer = layui.layer;
+        })
+        /**
+         * 默认调用
+         */
+        !function () {
+            var $target = $('#J_Address');
+            $target.citySelect();
+            $target.on('click', function (event) {
+                event.stopPropagation();
+                $target.citySelect('open');
+            });
+            $target.on('done.ydui.cityselect', function (ret) {
+                $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+            });
+        }(); 
+
+        $(".save-address").click(function(){
+            $.post("{:addonUrl('saveAddress')}",{
+                province:$("input[name='province']").val(),
+                address:$("textarea[name='address']").val(),
+                name:$("input[name='name']").val(),
+                mobile:$("input[name='mobile']").val()
+            },function(data){
+                layer.msg(data.msg);
+                setTimeout(function(){
+                    window.location.href="{:addonUrl('addressList')}";
+                },1000);
+            });
+        });      
+    </script>
+    <div class="m-cityselect">   
+        <div class="cityselect-header">        
+            <p class="cityselect-title">所在地区</p>        
+            <div class="cityselect-nav">            
+                <a href="javascript:;"></a>            
+                <a href="javascript:;"></a>            
+                <a href="javascript:;"></a>        
+            </div>    
+        </div>    
+        <ul class="cityselect-content">        
+            <li class="cityselect-item">            
+                <div class="cityselect-item-box"></div>       
+            </li>        
+            <li class="cityselect-item">            
+                <div class="cityselect-item-box"></div>        
+            </li>        
+            <li class="cityselect-item">            
+                <div class="cityselect-item-box"></div>        
+            </li>    
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var shareTitel  = '';
+        var shareDesc   = '';
+        var shareLink   = 'http://'+window.location.hostname+'/app/weshop/index/login/mid/{$mpInfo.id}';
+        var shareImgUrl = 'http://'+window.location.hostname+'/addons/weshop/static/images/login-logo.jpg';
+        wx.ready(function(){
+            wx.onMenuShareTimeline({
+                title: shareTitel, // 分享标题
+                link: shareLink, // 分享链接
+                imgUrl: shareImgUrl, // 分享图标
+                success: function () { 
+
+                },
+                cancel: function () { 
+                
+                }
+            });
+          wx.onMenuShareAppMessage({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              type: '', // 分享类型,music、video或link，不填默认为link
+              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function () { 
+            
+              },
+              cancel: function () { 
+
+              }
+          });
+            wx.onMenuShareQQ({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                   
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareWeibo({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                  
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareQZone({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                 
+              },
+              cancel: function () { 
+
+              }
+          });
+        });
+    </script>
+</body>
+</html>

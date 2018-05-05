@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no">    
+    <title>分类列表</title>
+    {include file="common/base" /}
+    <style type="text/css">
+        .mui-pull-bottom-tips {
+            text-align: center;
+            background-color: #efeff4;
+            font-size: 15px;
+            line-height: 40px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-header-default aui-header-fixed ">
+        <a href="javascript:history.back(-1)" class="aui-header-item">
+            <i class="aui-icon aui-icon-back"></i>
+        </a>
+        <div class="aui-header-center aui-header-center-clear">
+            <div class="aui-header-search-box">
+                <i class="aui-icon aui-icon-small-search"></i>
+                <input id="" type="text" placeholder="" class="aui-header-search">
+            </div>
+        </div>
+    </header>
+    <section class="aui-new-search-content">
+        <div class="aui-new-search-tab">
+            <ul>
+                <li>
+                    <span {if $order == 'id'}class="aui-active"{/if}><a href="{:addonUrl('typeList',['type'=>$type,'order'=>'id','order_type'=>$order_type])}">综合</a></span>
+                </li>
+                <li>
+                    <span {if $order == 'sale'}class="aui-active"{/if}><a href="{:addonUrl('typeList',['type'=>$type,'order'=>'sale','order_type'=>$order_type])}">销量</a></span>
+                </li>
+                <li>
+                    <span {if $order == 'price'}class="aui-active"{/if}><a href="{:addonUrl('typeList',['type'=>$type,'order'=>'price','order_type'=>$order_type])}">价格</a></span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="aui-list-product" id="pullrefresh">
+        <div class="aui-list-product-float-item">
+            {volist name="goodsList" id="goods"}
+            <a href="{:addonUrl('goods',['id'=>$goods['id']])}" class="aui-list-product-fl-item">
+                <div class="aui-list-product-fl-img">
+                    <img src="{$goods.images}" alt="">
+                </div>
+                <div class="aui-list-product-fl-text">
+                    <h3 class="aui-list-product-fl-title">{$goods.title}</h3>
+                    <div class="aui-list-product-fl-mes">
+                        <div>
+                            <span class="aui-list-product-item-price">
+                                <em>¥</em>
+                                {$goods.price}
+                            </span>
+                            <!-- <span class="aui-list-product-item-del-price">
+                                ¥{$goods.price}
+                            </span> -->
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {/volist}
+        </div>
+    </section>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__mui/js/mui.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}
+    <script type="text/javascript">
+        var layer;
+        layui.use('layer',function () {
+            layer = layui.layer;
+        })
+        var last_page = 1;
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
+
+        /**
+         * 上拉加载具体业务实现
+         */
+        function pullupRefresh() {
+            setTimeout(function() {
+                last_page++;
+                var table = document.body.querySelector('.aui-list-product-float-item');
+                $.get("{:addonUrl('getGoodsList')}?page="+last_page+"&type={$type}&order={$order}&order_type={$order_type}",function (res) {
+                    layui.each(res.data, function(index, item){
+                        if(item.id > 0){
+                            var url     = "{:addonUrl('goods')}/id/"+item.id;
+                            var html    = '<a href="'+url+'"><div class="aui-list-product-fl-img"><img src="'+item.images+'" alt=""></div><div class="aui-list-product-fl-text"><h3 class="aui-list-product-fl-title">'+item.title+'</h3><div class="aui-list-product-fl-mes"><div><span class="aui-list-product-item-price"><em>¥</em>'+item.price+'</span></div></div></div></a>';
+                            table.appendChild(html);
+                        }else{
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                        }                                
+                    });                        
+                })
+            }, 1500);
+        }   
+        mui('body').on('tap', 'a', function () { document.location.href = this.href; });     
+    </script>
+    <script type="text/javascript">
+        var shareTitel  = '';
+        var shareDesc   = '';
+        var shareLink   = 'http://'+window.location.hostname+'/app/weshop/index/login/mid/{$mpInfo.id}';
+        var shareImgUrl = 'http://'+window.location.hostname+'/addons/weshop/static/images/login-logo.jpg';
+        wx.ready(function(){
+            wx.onMenuShareTimeline({
+                title: shareTitel, // 分享标题
+                link: shareLink, // 分享链接
+                imgUrl: shareImgUrl, // 分享图标
+                success: function () { 
+
+                },
+                cancel: function () { 
+                
+                }
+            });
+          wx.onMenuShareAppMessage({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              type: '', // 分享类型,music、video或link，不填默认为link
+              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function () { 
+            
+              },
+              cancel: function () { 
+
+              }
+          });
+            wx.onMenuShareQQ({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                   
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareWeibo({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                  
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareQZone({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                 
+              },
+              cancel: function () { 
+
+              }
+          });
+        });
+    </script>
+</body>
+</html>

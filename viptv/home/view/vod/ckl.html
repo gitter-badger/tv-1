@@ -1,0 +1,91 @@
+{extend name="base:player"/}
+{block name="title"}{$ptitle} - {$title}- {$description}{/block}
+{block name="js"}
+    <script type="text/javascript" src="__CKP__/ckplayer.js"></script>
+	<script type="text/javascript" src="__Player__/base.js"></script>
+    <script type="text/javascript" src="__JS__/video.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>    
+    <script type="text/javascript" src="__JS__/perfect-scrollbar.js"></script>
+{/block}
+{block name="css"}
+    <link href="__CSS__/video.css" rel="stylesheet" type="text/css" />
+    <link href="__CSS__/perfect-scrollbar.css" rel="stylesheet"  type="text/css" />
+{/block}
+{block name="content"}
+    <div class="videobox">
+        <div id="left">
+            <div id="play">
+                <div id="a1"></div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="listhide">
+                <a id="hide" onclick="hide()">
+                    <i class="listicn icn_right"></i>
+                </a>
+                <a id="shows" style="display:none;" onclick="hide()">
+                    <div class="showbox">
+                        <i class="listicn icn_left"></i>
+                        <span>展开列表</span>
+                    </div>
+                </a>
+            </div>
+            <div id="listcontent">
+                <div class="list_a" id="list_a">
+                    <ul>
+                        <div class="list_c">
+                            <h2 id="list_title"></h2>
+                            <p id="list_subname"></p>
+                        </div>          
+                        <div class="list_d" id="list_d">
+                            <div class="main">
+                                <a id="main1" onclick="main('1')">选集<i class="dz"></i></a>
+                                <a id="main2" onclick="main('2')">简介<i></i></a>
+                                <a id="main3" onclick="main('3')">详情<i></i></a>
+                            </div>
+                            <div class="ul_box">
+                                <ul id="ul1"></ul>
+                                <ul id="ul2" style="display:none;"></ul>
+                                <ul id="ul3" style="display:none;"></ul>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+player(0);
+function player(n){
+    nowD = n;
+    $.post("{$api}",function(data){
+        Playlist = data['base'];          
+        var _html = '';	
+        for (i = 0; i < Playlist.length; i++) { 
+            if (i != nowD) {
+                _html += '<li  style="width:264px"><a  href="javascript:jsnull();" id="vli_'+ i +'"  data-cur="'+Playlist[i].name +'" data-next="'+Playlist[i].name +'" onclick="player('+ i +')" title="'+Playlist[i].name +'">'+Playlist[i].name +'</a></li>'; 
+            }else{                
+                _html += '<li  style="width:264px"><a class="currda" href="javascript:jsnull();" id="vli_'+ i +'"  data-cur="'+Playlist[i].name +'" data-next="'+Playlist[i].name +'" onclick="player('+ i +')" title="'+Playlist[i].name +'">'+Playlist[i].name +'</a></li>'; 
+            }
+        }
+        var _htmll = '<div class="list_j">'+Playlist.cont+'<div style="width:100%;margin:10px auto 5px"><img src="'+Playlist.img+'" width="100%"></div></div>'; 
+        var _htmlll = '<div class="list_j">'+Playlist.cont+'</div>';    
+        document.getElementById('ul1').innerHTML = _html; 
+        document.getElementById('ul2').innerHTML = _htmll; 
+        document.getElementById('ul3').innerHTML = _htmlll; 
+        document.title = data['title'] +"["+Playlist[n].name+"] - {$ptitle} - {$title}- {$description}";
+		$('#list_title').html("正在播放："+data['title']);
+        $('#list_subname').html(Playlist[n].name);  		
+        ckp(Playlist[n].lists);
+    },"json");
+	$('#play').css({'width':$('.videobox').width()-300+"px"});
+	$('.ul_box').perfectScrollbar();
+	$('.ul_box').animate({scrollTop:($('.currda').offset().top-297)}, 500);
+	$('.ul_box').animate({scrollTop:($('.currda').offset().top-297)}, 1000);
+
+}
+</script>
+{/block}

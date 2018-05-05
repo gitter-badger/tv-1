@@ -1,0 +1,18 @@
+<footer class="aui-footer-default aui-footer-fixed">
+    <a href="{:addonUrl('index')}" class="aui-footer-item {if $action == 'index'}aui-footer-active{/if}">
+        <span class="aui-footer-item-icon aui-icon aui-footer-icon-home"></span>
+        <span class="aui-footer-item-text">首页</span>
+    </a>
+    <a href="{:addonUrl('type')}" class="aui-footer-item {if $action == 'type'}aui-footer-active{/if}">
+        <span class="aui-footer-item-icon aui-icon aui-footer-icon-class"></span>
+        <span class="aui-footer-item-text">分类</span>
+    </a>
+    <a href="{:addonUrl('goodsCar')}" class="aui-footer-item {if $action == 'goodsCar'}aui-footer-active{/if}">
+        <span class="aui-footer-item-icon aui-icon aui-footer-icon-car"></span>
+        <span class="aui-footer-item-text">购物车</span>
+    </a>
+    <a href="{:addonUrl('account')}" class="aui-footer-item {if $action == 'profile'}aui-footer-active{/if}" data="{$action}">
+        <span class="aui-footer-item-icon aui-icon aui-footer-icon-me"></span>
+        <span class="aui-footer-item-text">我的</span>
+    </a>
+</footer>

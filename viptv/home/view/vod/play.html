@@ -1,0 +1,32 @@
+{extend name="base:common"/}
+{block name="title"} 正在播放：{$title}  - {$keywords}  - {$description}{/block}
+{block name="content"}
+    <ul data-role="listview" data-divider-theme="a">
+        <li data-role="list-divider" >
+            <iframe id="player" name="player" src="" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no width="100%" height="100%"></iframe>
+            <select onchange="Show(this.options[this.selectedIndex].value)" id="Myselect"><option value="">----请选择节目源-----</option></select>
+        </li>
+    </ul>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    var ThinkPHP = window.Think;
+    (function player(){
+        $.post("{$api}",function(data){    
+            var base = data['base'] ;
+            var html = '';
+            for (i = 0; i < base.length; i++) { 
+                k=i+1;
+                html += '<option value="'+ base[i].pid +'*'+ base[i].lid +'*'+ base[i].vid +'" >VIP高清极速线路'+ k +' - '+ base[i].name +' - '+ base[i].pid +'播放器</option>'; 
+            } 
+            document.getElementById('Myselect').innerHTML = html; 
+            document.getElementById("player").src = "{:url('/home/vod')}/"+base[0].pid+"/lid/"+base[0].lid+"/vid/"+base[0].vid;
+        },"json");            
+    }());    
+    function Show(data) {
+        var str=data.split('*');
+        document.getElementById("player").src ="{:url('/home/vod')}/"+str[0]+"/lid/"+str[1]+"/vid/"+str[2];
+    }
+    $('#player').height($(document).height()-220);
+</script>
+{/block}

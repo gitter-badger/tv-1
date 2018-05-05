@@ -1,0 +1,64 @@
+{extend name="base/common"/}
+{block name="title"}{$title} - {$keywords} - {$description}{/block}
+{block name="css"}{css href="__SWI__/css/swiper.min.css" /}{/block}
+{block name="js"}{js href="__SWI__/js/swiper.min.js" /}{/block}
+{block name="style"}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+		.swiper-container {
+			width: 100%;
+			height: 600px;
+			
+		}
+		.swiper-slide {
+			text-align: center;
+			font-size: 18px;
+			background: #fff;
+			
+			/* Center slide text vertically */
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+		}		
+    </style>
+{/block}
+{block name="content"}  
+        <div class="swiper-container">
+			 <div class="swiper-wrapper">
+				<div class="swiper-slide blue-slide">slider1</div>
+				<div class="swiper-slide red-slide">slider2</div>
+				<div class="swiper-slide orange-slide">slider3</div>
+			</div>			      
+			<div class="swiper-pagination"></div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+        </div>
+{/block}
+{block name="script"}
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+		centeredSlides: true,
+		zoom: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
+{/block}

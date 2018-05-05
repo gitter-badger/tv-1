@@ -1,0 +1,57 @@
+<!DOCTYPE >
+<html >
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">  
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">    
+    <meta http-equiv=”Expires” CONTENT=”0″>
+    <meta http-equiv=”Cache-Control” CONTENT=”no-cache”>
+    <meta http-equiv=”Pragma” CONTENT=”no-cache”>
+    <title>{block name="title"}{/block}</title> 
+    <meta name="title" content="{$webname},视频手机版,视频网站,视频播放" />
+    <meta name="keywords" content="{$keywords}">
+    <meta name="description" content="{$description}"> 
+    <style type="text/css"> 
+    {block name="style"}  
+        *{padding:0 ; margin: 0;overflow:hidden;}   
+        body{width:100%;height:100%;background-color:#000; color:#999;}
+    {/block}
+    </style>
+    {js href="__JS__/jquery-1.11.3.min.js,__Player__/base.js" /} 
+    {block name="js"}{/block}
+    {block name="css"}{/block}
+</head>
+<body>   
+    <div id="ads_area" >  
+        <div style="position:absolute;font-family:SimHei;left:0;top:0;margin-left:0px;margin-top:0px;"><a style="color:#FFCC33;cursor:hand" onClick="AdStop()">【点击此处跳过广告】</a></div> 
+        <div id="ad_ifr"></div>
+        <div id="ad_time" style="position:absolute;bottom:2px;right:2px;color:#000;background:#fff;padding:0px 5px;"></div>         
+    </div>  
+    {block name="content"}
+        <div id="a1"></div>
+    {/block}
+    <script>       
+        var str,vid,time = {$timer};    
+        function AdStop() {
+            document.getElementById("ads_area").style.display = "none";
+        }
+        (function AdPlay() {        
+            if(time){                     
+                document.getElementById("ads_area").style.display = '';
+                clearInterval(vid);
+                vid = setInterval(function() {
+                    str = "广告倒计时 " + time;
+                    time --;
+                    if (time == 0) {
+                        str = "";
+                        clearInterval(vid);
+                        AdStop();                                       
+                    }
+                    document.getElementById("ad_time").innerHTML = str;
+                }, 1000);
+            }   
+        }());  
+        document.getElementById("ad_ifr").innerHTML='<iframe scrolling="no" width="100%" height="100%" frameborder="0" src="{:url('load')}" name="mainFrame" scrolling="no" frameborder="no" marginwidth="0" marginheight="0"></iframe>';
+    </script>   
+    {block name="script"}{/block}	
+</body>
+</html>

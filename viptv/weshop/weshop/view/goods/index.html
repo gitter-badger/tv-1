@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}
+    {CSS href="__STATIC__layui/css/layui.css" /}
+    {CSS href="__ADDONSTATIC__css/style.css" /}
+</head>
+<body style="padding: 0px 10px;">
+{block name="nav_title"}
+<a href="{:addonUrl('goods/edit')}" id="addkw" class="layui-btn layui-btn-normal layui-btn-small rha-nav-title">新增</a>
+{/block}
+<div style="padding: 0px 10px 0px 10px;">
+    <table class="layui-table" lay-skin="nob" lay-size="sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>分类</th>
+            <th>标题</th>
+            <th>图片</th>
+            <th>价格</th>
+            <th>运费</th>
+            <th>库存</th>
+            <th>状态</th>
+            <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.type}</td>
+            <td>{$vo.title}</td>
+            <td><img src="{$vo.images}" width="50" class="image-circle"></td>
+            <td>{$vo.price}</td>
+            <td>{$vo.freight}</td>
+            <td>{$vo.count}</td>
+            <td>{if $vo.status == 1}上架{else}下架{/if}</td>
+            <td>
+                <a class="layui-btn layui-btn-mini" href="{:addonUrl('goods/edit',['id'=>$vo.id])}">编辑</a>
+                <a class="layui-btn layui-btn-mini layui-btn-danger" onclick="del({$vo.id})" href="javascript:;">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data->render()|raw}
+</div>
+</body>
+<script>
+    var layer;
+    layui.use('layer',function () {
+        layer = layui.layer;
+    })
+    function del(id) {
+        $.post("{:addonUrl('goods/del')}",{'id':id},function (res) {
+            layer.msg(res.msg);
+            if(res.status == 1){
+                window.location.reload();
+            }
+        })
+    }
+</script>
+</html>

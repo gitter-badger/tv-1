@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>登录</title>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}    
+    {CSS href="__STATIC__layui/css/layui.css" /}
+    {CSS href="__ADDONSTATIC__css/login.css" /}
+    {:hook('Jssdk')}
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row grid-img">
+            <img src="__ADDONSTATIC__/images/login-logo.jpg">
+        </div>
+        <div class="layui-row">
+            <form class="layui-form" action="">                
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">验证码</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="code" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                        <button type="button"  class="layui-btn code-btn">获取验证码</button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn layui-col-xs12" lay-submit lay-filter="LOGIN">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{js href='__ADDONSTATIC__js/code.js' /}
+<script>
+    layui.use(['form','layer'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        form.on('submit(LOGIN)', function(data){
+            var index=layer.load(1)
+            $.post('',data.field,function (res) {
+                layer.close(index);                
+                layer.msg(res.msg);
+                window.location.href = "{:addonUrl('index')}";
+            })
+            return false;
+        });
+    });   
+    /**
+     * 获取短信验证码
+     */
+    $('.code-btn').on('click', function(){
+        buttonCountdown($(this), 1000 * 60 * 3, "ss");
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            var index=layer.load(1)
+            $.post("{:addonUrl('getCode')}",{
+                'mobile':$("input[name='phone']").val()
+            },function (res) {
+                layer.close(index);
+                if(res.status != 1){
+                    $(".code-btn").trigger("bc.clear");
+                }
+                layer.msg(res.msg);
+            })
+            return false;
+        });
+    }); 
+</script>
+<script type="text/javascript">
+        var shareTitel  = '';
+        var shareDesc   = '';
+        var shareLink   = 'http://'+window.location.hostname+'/app/weshop/index/login/mid/{$mpInfo.id}';
+        var shareImgUrl = 'http://'+window.location.hostname+'/addons/weshop/static/images/login-logo.jpg';
+        wx.ready(function(){
+            wx.onMenuShareTimeline({
+                title: shareTitel, // 分享标题
+                link: shareLink, // 分享链接
+                imgUrl: shareImgUrl, // 分享图标
+                success: function () { 
+
+                },
+                cancel: function () { 
+                
+                }
+            });
+          wx.onMenuShareAppMessage({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              type: '', // 分享类型,music、video或link，不填默认为link
+              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function () { 
+                   
+              },
+              cancel: function () { 
+
+              }
+          });
+            wx.onMenuShareQQ({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                   
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareWeibo({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                  
+              },
+              cancel: function () { 
+                
+              }
+          });
+          wx.onMenuShareQZone({
+              title: shareTitel, // 分享标题
+              desc: shareDesc, // 分享描述
+              link: shareLink, // 分享链接
+              imgUrl: shareImgUrl, // 分享图标
+              success: function () { 
+                                 
+              },
+              cancel: function () { 
+
+              }
+          });
+        });
+    </script>

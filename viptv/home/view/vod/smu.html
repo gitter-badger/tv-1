@@ -1,0 +1,129 @@
+<!DOCTYPE >
+<html >
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">  
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">    
+    <meta http-equiv=”Expires” CONTENT=”0″>
+    <meta http-equiv=”Cache-Control” CONTENT=”no-cache”>
+    <meta http-equiv=”Pragma” CONTENT=”no-cache”>
+    <title>{$ptitle} -   {$title}  -  {$description}</title> 
+    <meta name="title" content="{$webname},视频手机版,视频网站,视频播放" />
+    <meta name="keywords" content="{$keywords}">
+    <meta name="description" content="{$description}"> 
+    <style type="text/css"> 
+        body {
+            padding: 20px;
+            background-color: #000;
+            font: 14px / 1.5 'Helvetica Neue', Helvetica ,'PingFang SC','Hiragino Sans GB','WenQuanYi Micro Hei','Microsoft Yahei',Arial,sans-serif;
+        }
+        h1 {
+            font-size: 36px;
+            color: #fff;
+            text-align: center;
+        }
+        .homepage {
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
+        }
+        .homepage a {
+            color :  #fff;
+        }
+        .wrapper {
+            width: 640px;
+            margin: 60px auto;
+        }
+        #smusic {
+            margin-bottom: 30px;
+        }
+                .button-group {
+            text-align: center;
+        }
+        .button-group button {
+            display: inline-block;
+            height: 36px;
+            line-height: 20px;
+            padding: 8px 16px;
+            min-width: 100px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            font: inherit;
+        }   
+    </style>
+	{js href="__JS__/jquery-1.11.3.min.js,__SMU__/js/smusic.min.js,__SMU__/js/mo.js" /} 
+	{css href="__SMU__/build/smusic.min.css" /} 
+</head>
+<body>
+<h1 id='title'></h1>    
+<article class="wrapper">
+    <div id="smusic"></div>
+    <div class="button-group"  >
+        <button id="getCurrentMusic">下载当前歌曲</button>
+    </div>
+</article>
+<p class="homepage" id='description'></p>
+{block name="script"}  
+<script>
+    ($.post("{$api}", function(data){        
+        document.title = data['title'] +" -  {$title}- {$description}"; 
+        document.getElementById('title').innerHTML =  data['title']; 
+        document.getElementById('description').innerHTML = data['description']; 
+        var smusic = SMusic(data['base'], {
+            container: document.getElementById('smusic'),//放置Smusic的DOM容器
+            volume: 1,    //初始化音量 (0 - 1之间) 
+            autoPlay: true,
+            panel: 'list' //['list' 列表面板, 'lyric' 歌词面板]
+        });
+        smusic.init();
+        document.getElementById('getCurrentMusic').addEventListener('click', function () {
+            var base = smusic.getCurrentInfo();
+            if (base) {
+                for (var k in base) {
+                   var info = base.audio;  
+                }          
+                showUrl(info);
+            }
+        });     
+    },"json"));
+    function showUrl(str) { 
+        if(str){
+            url = '<a href="'+str+'" download="filename">点击左键或右键目标另存下载本歌曲</a>';
+            openWin(url);
+            return;
+        }
+        showMsg("没有找到可下载的地址", true);
+    }
+    function openWin(str) {
+        var win = window.open("", "", "width=600,height=400,scrollbars=1");
+        if (win) {
+            var doc = win.document;
+            if (doc) {
+                doc.open();
+                doc.write('<body>');
+                doc.write(str);
+                doc.write('</body>');
+                doc.close();
+                win.focus();
+            }
+        }
+    }
+    var tid;
+    function showMsg(str, red) {
+        if (str) {
+            $(".description").html(str);
+            if (red) {
+                $(".description").addClass("red");
+            } else {
+                $(".description").removeClass("red");
+            }
+            clearTimeout(tid);
+            tid = setTimeout(hideMsg, 15000);
+        }
+    }
+    function hideMsg() {
+        $(".description").html(""); 
+    }
+</script>
+</body>
+</html>

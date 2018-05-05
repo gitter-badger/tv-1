@@ -1,0 +1,15 @@
+﻿{extend name="base:player"/}
+{block name="title"}{$ptitle} - {$title}- {$description}{/block}
+{block name="js"}
+<script type="text/javascript" src="__JWP__/jwplayer.js"></script>
+<script type="text/javascript" src="__CKP__/Jquery.js"></script>
+<script type="text/javascript" src="__Player__/base.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	$.post("{$api}",function(data){        
+		jwp(data['base'],data['title'] + " - {$ptitle} - {$title}- {$description}"); 
+	},"json");
+	jwp(getUrlParam('base'), "{$title}- {$description}"); 
+</script>
+{/block}

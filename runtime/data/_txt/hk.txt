@@ -1,0 +1,9 @@
+香港卫视,rtmp://live.hkstv.hk.lxdns.com/live/hks|
+TVB星河，http://r24.hemiaolive.com/hemiao/tvbxh.m3u8
+TVB星河，http://61.154.116.187/hemiao/tvbxh__redirect__23782.m3u8 
+J2，http://videolive.aliyuntest.club/live/j2.m3u8?auth_key=1514374113-0-0-e33b824acb19558fa884a007bfa7209f
+翡翠台，http://hls.quanmin.tv/live/tvblivehd3/playlist.m3u8
+翡翠台，http://acm.gg/jade.m3u8
+无线新闻台，http://videolive.aliyuntest.club/live/3c8e67b4a8ff1b0841ae18.m3u8?auth_key=1519200036-0-0-a4faac97bcf0540a409197e7170b7cf0
+TVB8，http://tvb8-i.akamaihd.net/hls/live/224490/C8Live/C8Live-1.m3u8
+Tvb娱乐新闻台，http://token.tvb.com/stream/live/enews/hls/mobilehd_enews.smil 

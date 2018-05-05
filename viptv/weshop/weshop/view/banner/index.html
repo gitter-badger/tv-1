@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}
+    {CSS href="__STATIC__layui/css/layui.css" /}
+    {CSS href="__STATIC__css/style.css" /}
+</head>
+<body style="padding: 0px 10px;">
+{block name="nav_title"}
+<a href="{:addonUrl('banner/edit')}" id="addkw" class="layui-btn layui-btn-normal layui-btn-small rha-nav-title">新增</a>
+{/block}
+<div style="padding: 0px 10px 0px 10px;">
+    <table class="layui-table" lay-skin="nob" lay-size="sm">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>图片</th>
+            <th>链接</th>
+            <th>状态</th>
+            <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data" id="vo"}
+        <tr>
+            <td>{$vo.sort}</td>
+            <td><img src="{$vo.images}" width="200"></td>
+            <td>{$vo.url}</td>
+            <td>{if $vo.status == 1}开启{else}关闭{/if}</td>
+            <td>
+                <a class="layui-btn layui-btn-mini" href="{:addonUrl('banner/edit',['id'=>$vo.id])}">编辑</a>
+                <a class="layui-btn layui-btn-mini layui-btn-danger" onclick="del({$vo.id})" href="javascript:;">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data->render()|raw}
+</div>
+</body>
+<script>
+    var layer;
+    layui.use('layer',function () {
+        layer = layui.layer;
+    })
+    function del(id) {
+        $.post("{:addonUrl('banner/del')}",{'id':id},function (res) {
+            layer.msg(res.msg);
+            if(res.status == 1){
+                window.location.reload();
+            }
+        })
+    }
+</script>
+</html>

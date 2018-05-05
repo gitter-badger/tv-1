@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{block name="title"}{/block}</title>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="{$webname},视频手机版,视频网站,视频播放" />
+    <meta name="keywords" content="{$keywords}">
+    <meta name="description" content="{$description}">  
+    {js href="__JS__/jquery-1.11.3.min.js" /}
+    {js href="__JS__/jquery.mobile-1.3.2.js" /}
+    {css href="__CSS__/jquery.mobile/jquery.mobile-1.3.2.css" /}
+    {block name="css"}{/block}
+    {block name="style"}{/block}
+</head>
+<body >
+<div data-role="page"  id="home" data-theme="a">
+    <div data-role="header"  data-position="fixed" >        
+        <a href="javascript:history.back()" data-icon="back" data-role="button" data-iconpos="left" >返回上层</a>
+        <h1  class="message">{block name="title"}{/block}</h1>
+        <a href="#panel-user" data-icon="user" data-role="button" data-iconpos="right">用户中心</a>
+        <div data-role="navbar">
+            <ul>
+
+     {volist name="nav" id="no"}
+        <li><a href="{$no.nav_link}"  data-icon="{$no.nav_icon}">{$no.nav_title}</a></li>
+     {/volist}  
+
+            </ul>
+        </div> 
+    </div>
+    <div data-role="panel" data-position="left" data-position-fixed="false" id="panel-live" data-theme="a" >
+        <a href="#" data-rel="close"  data-role="button" data-icon="delete"  >关闭列表</a>  
+        <ul data-role="listview" data-inset="true" >  
+
+    {volist name="nav_live" id="no"}
+        <li><a href="{$no.nav_link}"><h1>{$no.nav_title}</h1></a></li>
+    {/volist}
+
+        </ul>
+    </div>
+    <div data-role="panel" data-position="left" data-position-fixed="false" id="panel-vod"  data-theme="a"> 
+        <a href="#" data-rel="close"  data-role="button" data-icon="delete"  >关闭列表</a>  
+        <ul data-role="listview" data-inset="true" >  
+
+    {volist name="nav_vod" id="no"}
+        <li><a href="{$no.nav_link}"><h1>{$no.nav_title}</h1></a></li>
+    {/volist}
+
+        </ul>
+    </div>
+    <div data-role="panel" data-position="right" data-position-fixed="false" id="panel-vip" data-theme="a"> 
+        <a href="#" data-rel="close"  data-role="button" data-icon="delete"  >关闭列表</a>  
+        <ul data-role="listview" data-inset="true" >  
+
+    {volist name="nav_vip" id="no"}
+        <li><a href="{$no.nav_link}"><h1>{$no.nav_title}</h1></a></li>
+    {/volist}
+
+        </ul>
+    </div>
+    <div data-role="panel" data-position="right" data-position-fixed="false" id="panel-app" data-theme="a"> 
+        <a href="#" data-rel="close"  data-role="button" data-icon="delete"  >关闭列表</a>  
+        <ul data-role="listview" data-inset="true" >  
+
+    {volist name="nav_app" id="no"}
+        <li><a href="{$no.nav_link}"><h1>{$no.nav_title}</h1></a></li>
+    {/volist}
+
+        </ul>
+    </div>
+    <div data-role="content" data-theme="a">
+        {block name="content"}{/block}
+    </div>
+    <div data-role="footer"  data-position="fixed" >
+        <h4>{$copyright}</h2> 
+    </div>
+</div>
+{block name="js"}{/block}
+{block name="script"}{/block}
+</body>
+</html>

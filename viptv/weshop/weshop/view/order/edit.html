@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {js href='__STATIC__jquery/jquery-1.11.0.min.js' /}
+    {js href='__STATIC__layui/layui.js' /}
+    {CSS href="__STATIC__layui/css/layui.css" /}
+    {CSS href="__ADDONSTATIC__css/style.css" /}
+</head>
+<body style="padding: 0px 10px;">
+<div style="padding: 0px 10px 0px 10px;">
+    <form class="layui-form" action="" style="padding-right:10px; ">
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" title="已发货" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="{if !empty($data)}{$data.title}{/if}">
+            </div>
+        </div>        
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <script id="container" type="text/plain" name="remark">
+                    {if !empty($data)}{$data.remark}{/if}
+                </script>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+        {if !empty($data)}<input type="hidden" name="id" value="{$data.id}">{/if}
+    </form>
+</div>
+{js href="__STATIC__ueditor/ueditor.config.js" /}
+<!-- 编辑器源码文件 -->
+{js href="__STATIC__ueditor/ueditor.all.js" /}
+</body>
+<script>
+    var ue = UE.getEditor('container'); 
+    var layer;
+    layui.use('layer',function () {
+        layer = layui.layer;
+    })
+    
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+           // layer.msg(JSON.stringify(data.field));
+            $.post('',data.field,function (res) {
+                if(res.status=='0'){
+                    layer.msg(res.msg);
+                }
+                if(res.status=='1'){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.href="{:addonUrl('yigongzhaomu/index')}";
+                    },1000);
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</html>

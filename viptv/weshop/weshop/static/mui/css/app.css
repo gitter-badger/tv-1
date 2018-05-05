@@ -1,0 +1,184 @@
+/*
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+.mui-card-header>img.head-img,.mui-input-group .mui-input-row img.head-img{
+	width: 50px;
+    height: 50px;
+    border: 1px #fff solid;
+    margin-left: 22px;
+    margin-top: 30px;
+}
+.mui-card-header.mui-card-media .mui-media-body.person-nickname{
+	position: absolute;
+    bottom: 15px;
+    width: 82px;
+    text-align: center;
+    overflow: hidden;
+    margin-left: 0;
+    padding-left: 13px;
+}
+.hide{
+	display: none;
+}
+.mui-card{
+	border-radius: 0;
+	border:1px solid #85ae84;
+	box-shadow: none;
+}
+
+.mui-card-header{
+	border-radius: 0;
+}
+.mui-card-footer .mui-card-link{
+	color: #85ae84;
+}
+.mui-card-header.mui-card-media{
+	height:35vw;
+	background-image:url(../../images/userinfo-head-bg.jpg); 
+	background-size:100% 100%;
+}
+.icon-info{
+	width: 62.5px;
+	height: 50px;
+	background:url(../../images/icon-info.png) no-repeat;  
+	background-size: cover;
+}
+.icon-order{
+	width: 62.5px;
+	height: 50px;
+	background:url(../../images/icon-order.png) no-repeat;  
+	background-size: cover;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	margin-top: 0;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	border-color: #85ae84;
+	border:0;
+}
+.mui-grid-view.mui-grid-9{
+	border-color: #85ae84;
+	border:0;
+}
+.mui-content-padded{
+	margin: 0;
+}
+
+.account-info-row .mui-input-group .mui-input-row{
+	width: 80%;
+    margin: 0 auto;
+}
+.account-info-row .mui-input-row.account-head{
+	text-align: center; 
+	height: auto; 
+	padding: 20px;
+	background:url(../../images/info-head-bg.jpg) no-repeat;  
+	background-size: 100% 100%;
+    width: 100%;
+    height: 35vw;
+}
+.mui-input-row.account-head img.head-img{	
+    margin-left: -7px;
+}
+.mui-input-row .mui-btn {
+    font-size: 16px;
+    padding: 8px;
+    margin: 3px;                
+}
+.mui-input-row .mui-btn.sex-select,.mui-input-row .mui-btn.birthday-select{
+    padding-left: 0;
+    margin-left: 0;
+    text-align: left;
+    float: left;
+    border: 0;
+    width: 50%;
+}
+h5.mui-content-padded {
+    margin-left: 3px;
+    margin-top: 20px !important;
+}
+h5.mui-content-padded:first-child {
+    margin-top: 12px !important;
+}
+.ui-alert {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 16px;
+}
+.mui-content {
+    height: 0px;
+    margin: 0px;
+    background-color: #efeff4;
+}
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+.change-btn{
+    position: absolute;
+    right: 0;
+    border:0;
+}
+.change-btn img{
+	width: 50%;
+    padding-top: 5px;
+}
+.code-btn {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+    border: 0;
+    border-radius: 0;
+    background: #85ae84;
+}
+.account-sub-btn{
+	float: left;
+	width: 35%;
+	background: #85ae84;
+	border-radius: 0;
+	border:0;
+}
+.account-cancel-btn{
+	float: right;
+	width: 35%;
+	background: #ec504c;
+	border-radius: 0;
+	border:0;
+}
+.account-info-row .mui-button-row.account-input{
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+.account-info-row .mui-button-row.account-input button{
+	color: #fff;	
+}
+.account-info-row .mui-input-row.account-input{
+	background:url(../../images/info-input-bg.png) left bottom no-repeat; 
+	background-size: 5%;
+	margin-top: 10px;
+}
+.account-info-row .sex-select,.account-info-row .birthday-select{
+	padding-top: 15px;
+}
+.account-info-row .mui-input-row label{
+	color: #85ae84;
+	font-size: 14px;	
+	padding-left: 30px;
+	padding-top: 20px;
+}
+.account-info-row .mui-input-row input{	
+	padding-top: 25px;
+}
+.mui-input-group .mui-input-row:after{
+	background-color:#85ae84;
+	left: 0;
+}
+.mui-input-group:after{
+	background-color: #fff;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	color: #85ae84;
+}
