@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{block name="title"}{/block}</title>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="{$webname},视频手机版,视频网站,视频播放" />
+    <meta name="keywords" content="{$keywords}">
+    <meta name="description" content="{$description}">  
+    {js href="/static/index/js/jquery-1.11.3.min.js" /}
+    {js href="/static/index/js/jquery.mobile-1.4.5.min.js" /}
+    {css href="/static/index/css/jquery.mobile-1.4.5.min.css" /}
+    {block name="css"}{/block}
+	{block name="js"}{/block}
+	<style type="text/css">
+	    body,html,video{width:100%;height:100%;background:#000;padding:0;margin:0;overflow-x:hidden;overflow-y:hidden}
+	    *{margin:0;border:0;padding:0;text-decoration:none} 	    
+	</style>
+    {block name="style"}{/block}
+</head>
+<body >
+<div data-role="page"  id="home" data-theme="b">
+    <div data-role="header"  data-position="fixed">   
+	    <a href="#" data-role="button" data-icon="home" >首页</a>		
+        <h1  class="message">{block name="message"}{/block}</h1>
+        <a href="#panel-list" data-icon="bars" data-role="button" data-iconpos="right" >节目列表</a>	
+    </div>
+	{block name="panel"}
+	<div data-role="panel"  data-position="right" data-position-fixed="false" id="panel-list" >
+        <a href="#" data-rel="close"  data-role="button" data-icon="delete"  >关闭列表</a>  
+        <ul data-role="listview" data-inset="true" >		
+		    {foreach name="nav" id="vo"}<li><a href="{:url('mgtv/tvlist')}?id={$vo.cateid}">{$vo.name}</a></li>{/foreach}
+			
+		</ul>
+    </div>
+	{/block} 
+    
+    <div data-role="content">
+	{block name="content"}{/block}        
+	</div>
+    <div data-role="footer"  data-position="fixed" > 
+		<div data-role="navbar">
+		  <ul>			
+			<li><a data-role="button"  data-icon="video" href="#">电视台</a></li>
+			<li><a data-role="button"  data-icon="phone" href="#">影视剧</a></li>
+			<li><a data-role="button"  data-icon="audio" href="#">音乐吧</a></li>
+			<li><a data-role="button"  data-icon="grid" href="#">电子书</a></li>
+		  </ul>
+		</div>    	
+    </div>
+</div>
+{block name="script"}{/block}
+</body>
+</html>

@@ -1,0 +1,26 @@
+{extend name="base/common"/}
+{block name="content"} 
+    <div class="video" style="width: 100%; height: 400px;"><iframe id="iframe-player" name="iframe-player" src="{:url('mgtv/TvPlay')}?url={$data.contId}" width="100%" height="100%" scrolling="no" frameborder="0"></iframe> </div>
+    <div data-role="tabs" id="tabs">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#epg" class="ui-btn-active" data-icon="eye">节目预告</a></li>      
+                <li><a href="#path" data-icon="video">线路切换</a></li>     
+                <li><a href="#conter" data-rel="popup" data-icon="grid">内容简介</a></li>
+            </ul>
+            <ul data-role="listview" data-inset="true" data-divider-theme="a" id="epg">
+                {volist name="$data.epg" id="vo"}<li>{$vo.startHours} - {$vo.endHours} : {$vo.contName}</li>{/volist} 
+            </ul>   
+            <ul data-role="listview" data-inset="true" id="path" >
+               <li ><a href="#">线路1</a></li>
+			   <li ><a href="#">线路2</a></li>
+			   <li ><a href="#">线路3</a></li>
+            </ul>
+            <ul data-role="listview" data-inset="true" id="conter" >
+               <li><p>Well, Mr. Griffin, I've looked into physical results.</p></li>
+            </ul>
+        </div>
+    <div>
+{/block}
+{block name="title"}{$data.contName} - {$data.programName}{/block}
+{block name="message"}正在播放 ：{$data.playName} - {$data.contName}{/block}

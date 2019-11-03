@@ -4,82 +4,136 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf9a4edff7ca5d83a52a9242e688ac24a
+class ComposerStaticInit472e62fbc474e1760049bb3ac0583235
 {
     public static $files = array (
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
-        '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
-        'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
-        'ddc3cd2a04224f9638c5d0de6a69c7e3' => __DIR__ . '/..' . '/topthink/think-migration/src/config.php',
+        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         't' => 
         array (
-            'think\\oracle\\' => 13,
-            'think\\mongo\\' => 12,
-            'think\\migration\\' => 16,
-            'think\\helper\\' => 13,
-            'think\\composer\\' => 15,
-            'think\\captcha\\' => 14,
+            'think\\view\\driver\\' => 18,
+            'think\\trace\\' => 12,
+            'think\\app\\' => 10,
             'think\\' => 6,
+        ),
+        'e' => 
+        array (
+            'ext\\' => 4,
         ),
         'a' => 
         array (
             'app\\' => 4,
         ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php72\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
+        ),
         'P' => 
         array (
-            'Phinx\\' => 6,
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
+            'Psr\\Container\\' => 14,
+            'Psr\\Cache\\' => 10,
+        ),
+        'O' => 
+        array (
+            'Opis\\Closure\\' => 13,
+        ),
+        'L' => 
+        array (
+            'League\\Flysystem\\Cached\\' => 24,
+            'League\\Flysystem\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'think\\oracle\\' => 
+        'think\\view\\driver\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-oracle/src',
+            0 => __DIR__ . '/..' . '/topthink/think-view/src',
         ),
-        'think\\mongo\\' => 
+        'think\\trace\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-mongo/src',
+            0 => __DIR__ . '/..' . '/topthink/think-trace/src',
         ),
-        'think\\migration\\' => 
+        'think\\app\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-migration/src',
-        ),
-        'think\\helper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-        ),
-        'think\\composer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/topthink/think-installer/src',
-        ),
-        'think\\captcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/topthink/think-captcha/src',
+            0 => __DIR__ . '/..' . '/topthink/think-multi-app/src',
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/thinkphp/library/think',
-            1 => __DIR__ . '/..' . '/topthink/think-image/src',
-            2 => __DIR__ . '/..' . '/topthink/think-queue/src',
+            0 => __DIR__ . '/..' . '/topthink/framework/src/think',
+            1 => __DIR__ . '/..' . '/topthink/think-helper/src',
+            2 => __DIR__ . '/..' . '/topthink/think-orm/src',
+            3 => __DIR__ . '/..' . '/topthink/think-template/src',
+        ),
+        'ext\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/extend',
         ),
         'app\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/application',
+            0 => __DIR__ . '/../..' . '/app',
         ),
-        'Phinx\\' => 
+        'Symfony\\Polyfill\\Php72\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'Opis\\Closure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/closure/src',
+        ),
+        'League\\Flysystem\\Cached\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/flysystem-cached-adapter/src',
+        ),
+        'League\\Flysystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+    );
+
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/../..' . '/extend',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf9a4edff7ca5d83a52a9242e688ac24a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf9a4edff7ca5d83a52a9242e688ac24a::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit472e62fbc474e1760049bb3ac0583235::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit472e62fbc474e1760049bb3ac0583235::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit472e62fbc474e1760049bb3ac0583235::$fallbackDirsPsr0;
 
         }, null, ClassLoader::class);
     }

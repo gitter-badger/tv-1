@@ -1,0 +1,76 @@
+{extend name="base/commonp"/}
+{block name="js"}	
+{switch name="type" }
+	{case value="dp" }
+	{js href="/static/player/dplayer/DPlayer.js"}
+	{/case} 		
+	{case value= "ckp" }
+		{js href="/static/player/ckplayer/ckplayer.js"}
+	{/case}  
+	{case value= "chp" }
+		{js href="/static/player/chplayer/chplayer.js"}
+	{/case} 					
+	{case value= "jwp" }
+		{js href="https://cdn.jsdelivr.net/npm/cdnbye@latest,http://ssl.p.jwpcdn.com/player/v/8.0.11/jwplayer.js,https://cdn.jsdelivr.net/npm/cdnbye@latest/dist/jwplayer.hlsjs.provider.min.js"}
+	{/case} 
+	{case value= "mgl" }
+		{js href="/static/player/chplayer/chplayer.js"}
+	{/case} 
+	{case value= "ivi" }
+		{js href="/static/player/jwplayer/jwplayer.js"}
+	{/case}
+	{case value= "xgp" }
+	 	{js href="/static/player/cdnbye/latest.js,/static/player/xgplayer/hls.js"}
+	{/case}
+	{case value= "xyp" }
+	  	{js href="/static/player/xyplayer/xyplayer.js,"}
+	 {/case}
+	{case value= "chi" }
+	 	{js href="/static/player/cdnbye/latest.js,/static/player/chimee/latest.js,/static/player/chimee/browser.js"}
+	{/case} 
+	{default /}
+		{js href="/static/player/dplayer/DPlayer.js,"}	
+{/switch}
+    <script src="/static/player/video.js"></script>
+{/block}
+{block name="script"}
+{switch name="type" }
+	{case value="dp" }
+		<script >player.dp('{$url}');</script>
+	{/case}	
+	{case value= "ckp"}
+		<script >player.ckp('{$url}');</script>
+	{/case}
+	{case value= "chp"}
+		<script >player.chp('{$url}');</script>
+	{/case}
+	{case value= "jwp"}
+		<script >player.jwp('{$url}');</script>
+	{/case}
+	{case value= "mgl"}
+		<script >player.mgl('{$url}');</script>
+	{/case} 
+	{case value= "ivi"}
+		<script >player.ivi('{$url}');</script>
+	{/case} 
+	{case value= "xgp"}
+		<script >player.xgp('{$url}');</script>
+	{/case} 
+	{case value= "xyp"}
+		<script >player.xyp('{$url}');</script>
+	{/case}	
+	{case value= "chi"}
+		<script >player.chi('{$url}');</script>
+	{/case}				
+	{default /}
+	{case value="dp" }
+		<script >player.dp('{$url}');</script>
+	{/case}	
+{/switch}
+{/block}
+
+
+
+
+
+

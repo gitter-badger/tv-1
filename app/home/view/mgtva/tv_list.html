@@ -1,0 +1,12 @@
+{extend name="base/common"/}
+{block name="title"}{$title} - {$keywords} - {$description}{/block}
+{block name="content"}     
+    <ul data-role="listview" data-inset="true" data-filter="true">
+	{volist name="livelist" id="vo"}
+	    <li><a href="{:url('mgtv/TvVideo')}?id={$vo.pID}">
+        <h2>{$vo.name}</h2>
+        <p>正在播放 ：{$vo.nowPlaying}</p></a>
+      </li>
+	{/volist}  
+    </ul>  
+{/block}

@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$data.contName} - 官方线路 - VipTV</title>
+<style type="text/css">
+<!--
+html, body{margin: 0px 0px;width: 100%;height: 100%;}body {overflow:hidden;font-size: 12px;margin: 0px;background-color: #000000;}body, td, th {font-size: 13px;color: #999999;}img {border:0}a {outline: none;}a:link {color: #CCCCCC;text-decoration: none;}a:visited {color: #999999;text-decoration: none;}a:hover {color: #CCCCCC;text-decoration: none;}a:active {color: #CCCCCC;text-decoration: none;}#jm {float:left;display:inline; height:40px; line-height:40px;margin-left:10px;}#qh a {float:right;display:inline;display:block;height:40px;padding:0 5px;color:#999;line-height:40px;text-decoration:none;text-align:center; margin-right:10px;}#qh a.qh,#qh a:hover {color:#fff;}#qh a.linesort{color:#99cc00}#player {width:100%; height:100%;}#cover {width:100%; height:100%;z-index:2;position:absolute;}#lbottom {position:absolute;bottom:0px;left:0px;z-index:2;}#loading {position:absolute;bottom:0px;left:130px;right:0px;z-index:3;width:auto;height:100%}#script {height:0px}* {box-sizing: border-box;}nav a, #sideMenu {margin: 0 10px 0 0;text-shadow: 1px 1px 2px #212121;}#scrollingNews {color: #fcfcfc;}#sideMenu {float:left;display:inline;height:40px;line-height:40px;color:red;z-index:3;}#sideMenuContainer {background: #202020;height: 80%;padding: 10px;position: fixed;top: 56px;right: -200px;width: 160px;z-index: 4;}#sideMenuContainer h2 {color: #fcfcfc;font: 15px 'PT Sans', Helvetica, Arial, sans-serif;letter-spacing: 2px;text-transform: uppercase;}#sideMenuContainer > a {display: block;padding: 5px 10px;}#sideMenuContainer > a::after {content: attr(title);font: 13px 'PT Sans', Helvetica, Arial, sans-serif;padding-left: 10px;text-transform: uppercase;}
+-->
+</style>
+
+{css href="https://cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" /}
+
+</head>
+<body >
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#23262E">
+<tr id="jiemu">
+<td height="40" nowrap>
+<div id="jm"><i class="icon-double-angle-right"></i> CCTV-13新闻&nbsp;&nbsp;</div>
+<div id="sideMenu"><span>[切换线路]</span></div>
+<div id="sideMenuContainer">
+  <h2><i class="icon-double-angle-right"></i> 线路选择</h2>
+<a href='#' title='官网云线路'><font color='#ff3c00'><i class='icon-play-circle'></i></font></a>
+
+</div>
+<div id="qh">
+<a class="qh"><font color="#ff3c00"><i class='icon-info-sign'></i> 本站直播资源均外链于网络！</font></a>
+<a class="qh" href='#' target='_blank'><font color="#fff600"><i class='icon-money'></i> 广告招租</font></a>
+</div>
+<td>
+</tr>
+<tr>
+<td width="100%">
+<div id="player">
+<table width="100%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<iframe src="{:url('mgtv/MgPlay')}?url={$data.contId}" width="100%" height="100%" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+</td>
+</tr>
+</div>
+</td>
+</tr>
+</table>
+<script src="//lib.baomitu.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function($){
+  $.fn.sideToggle = function(options) {
+
+
+    var settings = $.extend({
+      moving : null, // which object to toggle?
+      direction : null // toggle from this side of the window
+    }, options);
+
+
+    return this.click(function(){
+
+      var thisDir = {};
+
+      var moveThis = settings.moving;
+      var dirPos = parseInt($(moveThis).css(settings.direction), 10);
+      var menuWidth = $(moveThis).outerWidth();
+
+      if (isNaN(dirPos)) {
+        console.log("Please define the object's position in the css.");
+      }
+
+      if (dirPos === 0) {
+        thisDir[settings.direction] = -menuWidth;
+        $(moveThis).animate(thisDir);
+      } else {
+        thisDir[settings.direction] = 0;
+        $(moveThis).animate(thisDir);
+      }
+    });
+  }
+}(jQuery));
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $('#sideMenu').sideToggle({
+		moving: '#sideMenuContainer',
+		direction: 'left'
+	  });
+
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{extend name="base:player"/}
+{block name="title"}{$ptitle} - {$title}- {$description}{/block}
+{block name="js"}
+    <script type="text/javascript" src="__CMP__/js/cmp.js"></script>
+{/block}
+{block name="script"}
+    <script type="text/javascript">
+    $(function(){
+	    var Path = "__CMP__/";
+        $.post("{$api}",function(data){              
+            document.title=data['title'] + " - {$ptitle} - {$title}- {$description}";
+			cmp(data['base']);                 
+        },"json");
+        if(ext =='m3u8'){ 
+            cmp_xml = '<list><m type="m3u8" src="'+getUrlParam('base')+'" label="外部资源调试点播" /></list>';
+        }else if(ext =='mp3'){
+            cmp_xml = '<list><m type="1" src="'+getUrlParam('base')+'" label="外部资源调试点播" /></list>';
+        }else{
+            cmp_xml = '<list><m type="2" src="'+getUrlParam('base')+'" label="外部资源调试点播" /></list>';
+        }
+		document.title="外部调用{$ptitle} - {$title}- {$description}";
+        cmp(cmp_xml,Path)      
+    });
+    </script>
+{/block}
